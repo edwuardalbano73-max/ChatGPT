@@ -1,24 +1,46 @@
-const chat = document.getElementById("chat");
-const welcome = document.getElementById("welcome");
+const chat =
+  document.getElementById("chat");
 
-const form = document.getElementById("chatForm");
-const input = document.getElementById("messageInput");
-const sendButton = document.getElementById("sendButton");
+const welcome =
+  document.getElementById("welcome");
 
-const newChat = document.getElementById("newChat");
-const newChatTop = document.getElementById("newChatTop");
+const form =
+  document.getElementById("chatForm");
 
-const historyContainer = document.getElementById("history");
-const clearHistory = document.getElementById("clearHistory");
+const input =
+  document.getElementById("messageInput");
 
-const menuButton = document.getElementById("menuButton");
-const sidebar = document.querySelector(".sidebar");
+const sendButton =
+  document.getElementById("sendButton");
+
+const newChat =
+  document.getElementById("newChat");
+
+const newChatTop =
+  document.getElementById("newChatTop");
+
+const historyContainer =
+  document.getElementById("history");
+
+const clearHistory =
+  document.getElementById("clearHistory");
+
+const menuButton =
+  document.getElementById("menuButton");
+
+const sidebar =
+  document.querySelector(".sidebar");
+
 
 let chats = JSON.parse(
-  localStorage.getItem("ai_chat_history") || "[]"
+  localStorage.getItem(
+    "ai_chat_history"
+  ) || "[]"
 );
 
+
 let currentChatId = null;
+
 let messages = [];
 
 
@@ -26,42 +48,59 @@ let messages = [];
 // UTILIDADES
 // ==============================
 
-function saveChats() {
-  localStorage.setItem(
-    "ai_chat_history",
-    JSON.stringify(chats)
-  );
-}
-
 function createId() {
   return Date.now().toString();
 }
 
-function escapeHTML(text) {
-  const div = document.createElement("div");
-  div.textContent = text;
-  return div.innerHTML;
+
+function saveChats() {
+
+  localStorage.setItem(
+    "ai_chat_history",
+    JSON.stringify(chats)
+  );
+
 }
 
+
+function escapeHTML(text) {
+
+  const div =
+    document.createElement("div");
+
+  div.textContent = text;
+
+  return div.innerHTML;
+
+}
+
+
 function formatText(text) {
-  let safe = escapeHTML(text);
+
+  let safe =
+    escapeHTML(text);
+
 
   safe = safe.replace(
     /```([\s\S]*?)```/g,
     "<pre><code>$1</code></pre>"
   );
 
+
   safe = safe.replace(
     /\*\*(.*?)\*\*/g,
     "<strong>$1</strong>"
   );
+
 
   safe = safe.replace(
     /\n/g,
     "<br>"
   );
 
+
   return safe;
+
 }
 
 
@@ -70,30 +109,55 @@ function formatText(text) {
 // ==============================
 
 function renderHistory() {
+
   historyContainer.innerHTML = "";
+
 
   chats
     .slice()
     .reverse()
     .forEach(chatData => {
 
-      const button = document.createElement("button");
+      const button =
+        document.createElement("button");
 
-      button.className = "history-item";
 
-      if (chatData.id === currentChatId) {
-        button.classList.add("active");
+      button.className =
+        "history-item";
+
+
+      if (
+        chatData.id ===
+        currentChatId
+      ) {
+
+        button.classList.add(
+          "active"
+        );
+
       }
 
+
       button.textContent =
-        chatData.title || "Nueva conversación";
+        chatData.title ||
+        "Nueva conversación";
+
 
       button.onclick = () => {
-        loadChat(chatData.id);
+
+        loadChat(
+          chatData.id
+        );
+
       };
 
-      historyContainer.appendChild(button);
+
+      historyContainer.appendChild(
+        button
+      );
+
     });
+
 }
 
 
@@ -103,23 +167,38 @@ function renderHistory() {
 
 function startNewChat() {
 
-  currentChatId = createId();
+  currentChatId =
+    createId();
+
 
   messages = [];
 
+
   chat.innerHTML = "";
 
-  chat.appendChild(welcome);
 
-  welcome.style.display = "block";
+  chat.appendChild(
+    welcome
+  );
+
+
+  welcome.style.display =
+    "block";
+
 
   input.value = "";
 
+
   input.focus();
+
 
   renderHistory();
 
-  sidebar.classList.remove("open");
+
+  sidebar.classList.remove(
+    "open"
+  );
+
 }
 
 
@@ -129,47 +208,72 @@ function startNewChat() {
 
 function loadChat(id) {
 
-  const selected = chats.find(
-    chatData => chatData.id === id
-  );
+  const selected =
+    chats.find(
+      chatData =>
+        chatData.id === id
+    );
+
 
   if (!selected) return;
 
-  currentChatId = selected.id;
 
-  messages = [...selected.messages];
+  currentChatId =
+    selected.id;
+
+
+  messages =
+    [...selected.messages];
+
 
   chat.innerHTML = "";
 
+
   messages.forEach(message => {
+
     addMessageToScreen(
       message.role,
       message.content
     );
+
   });
+
 
   renderHistory();
 
-  sidebar.classList.remove("open");
+
+  sidebar.classList.remove(
+    "open"
+  );
+
 
   scrollBottom();
+
 }
 
 
 // ==============================
-// MENSAJES
+// MOSTRAR MENSAJE
 // ==============================
 
-function addMessageToScreen(role, content) {
+function addMessageToScreen(
+  role,
+  content
+) {
 
-  const message = document.createElement("div");
+  const message =
+    document.createElement("div");
 
-  message.className = `message ${role}`;
+
+  message.className =
+    `message ${role}`;
+
 
   const avatar =
     role === "user"
       ? "👤"
       : "✦";
+
 
   message.innerHTML = `
     <div class="message-inner">
@@ -185,19 +289,34 @@ function addMessageToScreen(role, content) {
     </div>
   `;
 
-  chat.appendChild(message);
+
+  chat.appendChild(
+    message
+  );
+
 
   return message;
+
 }
 
 
+// ==============================
+// ANIMACIÓN
+// ==============================
+
 function addTyping() {
 
-  const message = document.createElement("div");
+  const message =
+    document.createElement("div");
 
-  message.className = "message assistant";
 
-  message.id = "typingMessage";
+  message.className =
+    "message assistant";
+
+
+  message.id =
+    "typingMessage";
+
 
   message.innerHTML = `
     <div class="message-inner">
@@ -209,9 +328,11 @@ function addTyping() {
       <div class="message-content">
 
         <div class="typing">
+
           <span></span>
           <span></span>
           <span></span>
+
         </div>
 
       </div>
@@ -219,9 +340,14 @@ function addTyping() {
     </div>
   `;
 
-  chat.appendChild(message);
+
+  chat.appendChild(
+    message
+  );
+
 
   scrollBottom();
+
 }
 
 
@@ -231,172 +357,258 @@ function addTyping() {
 
 function saveCurrentChat() {
 
-  let current = chats.find(
-    chatData => chatData.id === currentChatId
-  );
+  let current =
+    chats.find(
+      chatData =>
+        chatData.id ===
+        currentChatId
+    );
+
 
   if (!current) {
 
     current = {
+
       id: currentChatId,
-      title: "Nueva conversación",
+
+      title:
+        "Nueva conversación",
+
       messages: []
+
     };
 
-    chats.push(current);
+
+    chats.push(
+      current
+    );
+
   }
 
-  current.messages = [...messages];
+
+  current.messages =
+    [...messages];
+
 
   const firstUserMessage =
     messages.find(
-      message => message.role === "user"
+      message =>
+        message.role ===
+        "user"
     );
+
 
   if (firstUserMessage) {
 
     current.title =
       firstUserMessage.content
-        .replace(/\s+/g, " ")
+        .replace(
+          /\s+/g,
+          " "
+        )
         .trim()
         .slice(0, 35);
 
+
     if (
-      firstUserMessage.content.length > 35
+      firstUserMessage.content
+        .length > 35
     ) {
+
       current.title += "...";
+
     }
+
   }
+
 
   saveChats();
 
   renderHistory();
+
 }
 
 
 // ==============================
-// ENVIAR MENSAJE
+// ENVIAR
 // ==============================
 
 async function sendMessage(text) {
 
-  text = text.trim();
+  text =
+    text.trim();
+
 
   if (!text) return;
 
+
   if (!currentChatId) {
-    currentChatId = createId();
+
+    currentChatId =
+      createId();
+
   }
 
-  welcome.style.display = "none";
+
+  welcome.style.display =
+    "none";
+
 
   messages.push({
+
     role: "user",
+
     content: text
+
   });
+
 
   addMessageToScreen(
     "user",
     text
   );
 
+
   input.value = "";
 
   autoResize();
 
-  sendButton.disabled = true;
+
+  sendButton.disabled =
+    true;
+
 
   addTyping();
 
   scrollBottom();
 
+
   try {
 
-    const response = await fetch(
-      "/api/chat",
-      {
-        method: "POST",
+    const response =
+      await fetch(
+        "/api/chat",
+        {
 
-        headers: {
-          "Content-Type": "application/json"
-        },
+          method: "POST",
 
-        body: JSON.stringify({
-          messages
-        })
-      }
-    );
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
 
-    const data = await response.json();
+          body:
+            JSON.stringify({
+              messages
+            })
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
 
     const typing =
       document.getElementById(
         "typingMessage"
       );
 
+
     if (typing) {
+
       typing.remove();
+
     }
 
+
     if (!response.ok) {
+
       throw new Error(
         data.error ||
         "Error desconocido."
       );
+
     }
+
 
     const answer =
       data.response ||
       "No recibí una respuesta.";
 
+
     messages.push({
+
       role: "assistant",
+
       content: answer
+
     });
+
 
     addMessageToScreen(
       "assistant",
       answer
     );
 
+
     saveCurrentChat();
 
+
   } catch (error) {
+
+    console.error(error);
+
 
     const typing =
       document.getElementById(
         "typingMessage"
       );
 
+
     if (typing) {
+
       typing.remove();
+
     }
 
-    const errorMessage =
-      "No pude conectarme con la IA. Revisa la configuración de la API.";
 
-    messages.push({
-      role: "assistant",
-      content: errorMessage
-    });
+    const errorMessage =
+      "No pude conectarme con Gemini. " +
+      "Revisa la API key y la configuración de Render.";
+
 
     addMessageToScreen(
       "assistant",
       errorMessage
     );
 
-    saveCurrentChat();
 
-    console.error(error);
+    messages.push({
+
+      role: "assistant",
+
+      content: errorMessage
+
+    });
+
+
+    saveCurrentChat();
 
   } finally {
 
-    sendButton.disabled = false;
+    sendButton.disabled =
+      false;
+
 
     input.focus();
 
+
     scrollBottom();
+
   }
+
 }
 
 
@@ -410,9 +622,11 @@ form.addEventListener(
 
     event.preventDefault();
 
+
     sendMessage(
       input.value
     );
+
   }
 );
 
@@ -432,8 +646,11 @@ input.addEventListener(
 
       event.preventDefault();
 
+
       form.requestSubmit();
+
     }
+
   }
 );
 
@@ -447,15 +664,19 @@ input.addEventListener(
   autoResize
 );
 
+
 function autoResize() {
 
-  input.style.height = "auto";
+  input.style.height =
+    "auto";
+
 
   input.style.height =
     Math.min(
       input.scrollHeight,
       180
     ) + "px";
+
 }
 
 
@@ -468,11 +689,17 @@ function scrollBottom() {
   setTimeout(() => {
 
     chat.scrollTo({
-      top: chat.scrollHeight,
-      behavior: "smooth"
+
+      top:
+        chat.scrollHeight,
+
+      behavior:
+        "smooth"
+
     });
 
   }, 50);
+
 }
 
 
@@ -481,7 +708,9 @@ function scrollBottom() {
 // ==============================
 
 document
-  .querySelectorAll(".suggestion")
+  .querySelectorAll(
+    ".suggestion"
+  )
   .forEach(button => {
 
     button.addEventListener(
@@ -490,16 +719,24 @@ document
 
         const text =
           button.textContent
-            .replace(/^.{2}/, "")
+            .replace(
+              /^.{2}/,
+              ""
+            )
             .trim();
 
-        input.value = text;
+
+        input.value =
+          text;
+
 
         autoResize();
 
         input.focus();
+
       }
     );
+
   });
 
 
@@ -511,6 +748,7 @@ newChat.addEventListener(
   "click",
   startNewChat
 );
+
 
 newChatTop.addEventListener(
   "click",
@@ -528,22 +766,28 @@ clearHistory.addEventListener(
 
     chats = [];
 
+
     saveChats();
 
+
     startNewChat();
+
   }
 );
 
 
 // ==============================
-// MENU MOBILE
+// MENU
 // ==============================
 
 menuButton.addEventListener(
   "click",
   () => {
 
-    sidebar.classList.toggle("open");
+    sidebar.classList.toggle(
+      "open"
+    );
+
   }
 );
 
@@ -555,10 +799,13 @@ menuButton.addEventListener(
 if (chats.length > 0) {
 
   loadChat(
-    chats[chats.length - 1].id
+    chats[
+      chats.length - 1
+    ].id
   );
 
 } else {
 
   startNewChat();
+
 }
