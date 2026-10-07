@@ -1,7 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
   <meta charset="UTF-8">
+
   <meta
     name="viewport"
     content="width=device-width, initial-scale=1.0"
@@ -9,41 +12,76 @@
 
   <title>AI Chat</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
+
 </head>
+
 
 <body>
 
   <div class="app">
 
+
     <aside class="sidebar">
 
       <div class="sidebar-top">
+
         <div class="logo">
           ✦
         </div>
 
         <div class="brand">
-          <strong>AI Chat</strong>
-          <span>Asistente IA</span>
+
+          <strong>
+            AI Chat
+          </strong>
+
+          <span>
+            Gemini AI
+          </span>
+
         </div>
+
       </div>
 
-      <button id="newChat" class="new-chat">
-        <span>＋</span>
+
+      <button
+        id="newChat"
+        class="new-chat"
+      >
+
+        <span>
+          ＋
+        </span>
+
         Nuevo chat
+
       </button>
+
 
       <div class="history-title">
         Conversaciones
       </div>
 
-      <div id="history" class="history"></div>
+
+      <div
+        id="history"
+        class="history"
+      ></div>
+
 
       <div class="sidebar-bottom">
-        <button id="clearHistory" class="sidebar-button">
+
+        <button
+          id="clearHistory"
+          class="sidebar-button"
+        >
           🗑️ Borrar conversaciones
         </button>
+
       </div>
 
     </aside>
@@ -51,54 +89,81 @@
 
     <main class="main">
 
+
       <header class="topbar">
 
-        <button id="menuButton" class="menu-button">
+        <button
+          id="menuButton"
+          class="menu-button"
+        >
           ☰
         </button>
+
 
         <div class="mobile-title">
           AI Chat
         </div>
 
-        <button id="newChatTop" class="top-new">
+
+        <button
+          id="newChatTop"
+          class="top-new"
+        >
           ＋
         </button>
 
       </header>
 
 
-      <section id="chat" class="chat">
+      <section
+        id="chat"
+        class="chat"
+      >
 
-        <div id="welcome" class="welcome">
+
+        <div
+          id="welcome"
+          class="welcome"
+        >
 
           <div class="welcome-icon">
             ✦
           </div>
 
-          <h1>¿En qué puedo ayudarte?</h1>
+
+          <h1>
+            ¿En qué puedo ayudarte?
+          </h1>
+
 
           <p>
-            Pregúntame lo que quieras y comenzaré una conversación contigo.
+            Pregúntame lo que quieras y
+            comenzaré una conversación contigo.
           </p>
 
+
           <div class="suggestions">
+
 
             <button class="suggestion">
               💡 Explícame algo de forma sencilla
             </button>
 
+
             <button class="suggestion">
               📝 Ayúdame a escribir un texto
             </button>
+
 
             <button class="suggestion">
               💻 Ayúdame con programación
             </button>
 
+
             <button class="suggestion">
               🌎 Cuéntame algo interesante
             </button>
+
 
           </div>
 
@@ -109,7 +174,11 @@
 
       <div class="input-area">
 
-        <form id="chatForm" class="input-box">
+
+        <form
+          id="chatForm"
+          class="input-box"
+        >
 
           <textarea
             id="messageInput"
@@ -118,19 +187,22 @@
             autocomplete="off"
           ></textarea>
 
+
           <button
             id="sendButton"
             type="submit"
-            aria-label="Enviar"
           >
             ➤
           </button>
 
         </form>
 
+
         <div class="disclaimer">
-          La IA puede cometer errores. Comprueba la información importante.
+          La IA puede cometer errores.
+          Comprueba la información importante.
         </div>
+
 
       </div>
 
@@ -138,7 +210,9 @@
 
   </div>
 
+
   <script src="script.js"></script>
 
 </body>
+
 </html>
